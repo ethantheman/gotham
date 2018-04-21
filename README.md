@@ -1,12 +1,5 @@
-React Boilerplate with Redux/React-Router and SASS & Express on the back!
-
-Fork it!
-
-On terminal: <br>
-
-1: git clone <br>
-2: npm install <br>
-3: npm run react-dev <br>
-4: npm start <br>
-
-Open a new browser tab on localhost:3000 & start hacking! 
+This is my submission for the headlight labs NYC engineering tournament. To start the app, clone this repo, cd into it, and run the following commands:
+1. npm install
+2. webpack
+3. npm run react-dev
+4. npm start
