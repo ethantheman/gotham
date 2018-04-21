@@ -1,6 +1,7 @@
 import React from 'react';
 import VillianCard from './villianCard.jsx';
 import db from'../firebase.js';
+import axios from 'axios';
 
 class Villians extends React.Component {
 	constructor(props) {
@@ -8,6 +9,7 @@ class Villians extends React.Component {
 		this.state = {
 			villians: []
 		}
+		this.report = this.report.bind(this);
 	}
 
 	componentDidMount() {
@@ -15,23 +17,32 @@ class Villians extends React.Component {
 		  if (snap.val()) {
 		  	console.log(Object.values(snap.val()));
 		    this.setState({villians: Object.values(snap.val())});
-		    // this.setState(snap.val());
 		  }
+		});
+	}
+
+	report(url) {
+		console.log('reporting url: ', url);
+		axios.post('/api/report', {url: url}).then(response => {
+			console.log('response from server: ', response);
+		}).catch(err => {
+			console.log(err);
 		});
 	}
 
 	render() {
 		return (
 		<div>
-			<ul>
+			<h1>Click on a card to report the villian to Gotham Police!</h1>
+			<div>
 				{this.state.villians.map((villian, i) => {
 					return (
-					<li key={i}>
+					<div key={i} onClick={() => {this.report(villian[0])}}>
 						<VillianCard imageUrl={villian[0]} closestMatch={villian[1]} percent_match={villian[2]} />
-					</li>
+					</div>
 					);
 				})}
-			</ul>
+			</div>
 		</div>
 		);
 	}
