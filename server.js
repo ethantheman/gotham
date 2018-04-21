@@ -18,17 +18,17 @@ app.get("/api/test", (req, res) => {
 
 app.post('/api/images', fields, (req, res) => {
 	const imageBuffer = req.files.file[0].buffer;
-	let image_contents = Buffer.from(imageBuffer).toString('base64');
-	console.log(typeof image_contents);
-	// console.log('image: ', data);
+	const type = req.files.file[0].type;
+	
+	let image_contents = `data:${type};base64,` + Buffer.from(imageBuffer).toString('base64');
 	let data = {api_key, image_contents};
-	console.log('data: ', data);
-	// axios.post(headlight_api_path, data).then(response => {
-	// 	console.log('response from headlight: ', response);
-	// }).catch(err => {
-	// 	console.log('error from headlight: ', err);
-	// })
-	res.send('testing!');
+
+	axios.post(headlight_api_path, data).then(response => {
+		res.send(response.data);
+	}).catch(err => {
+		res.send('error :(');
+	})
+	
 });
 
 const PORT = process.env.PORT || 3000;

@@ -13,7 +13,7 @@ class ImageUploader extends React.Component {
 		e.preventDefault();
 		let data = new FormData();
 		data.append('file', this.uploadInput.files[0]);
-		data.append('fileName', this.fileName.value);
+		data.append('filename', this.fileName.value);
 		console.log('sending the following data: ', data.get('fileName'), ': ', data.get('file'));
 		axios.post('/api/images', data, {
 			headers: {
